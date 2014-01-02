@@ -1,0 +1,15 @@
+OASISFormat: 0.3
+Name: ocaml-monomorphic
+Version: 0.1
+Synopsis: A small library used to shadow polymorphic operators (and functions) contained in Pervasives.
+Authors: Jacques-Pascal Deplaix <jp.deplaix@gmail.com>
+License: MIT
+BuildTools: ocamlbuild
+Plugins: META (0.3), DevFiles (0.3)
+
+Library "monomorphic"
+  Path: src
+  Modules:
+    Monomorphic
+  ByteOpt: -w A
+  NativeOpt: -w A

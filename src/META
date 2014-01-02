@@ -1,0 +1,12 @@
+# OASIS_START
+# DO NOT EDIT (digest: 0d1d58320365e16ae64e9038c6762d2e)
+version = "0.1"
+description =
+"A small library used to shadow polymorphic operators (and functions) contained in Pervasives."
+archive(byte) = "monomorphic.cma"
+archive(byte, plugin) = "monomorphic.cma"
+archive(native) = "monomorphic.cmxa"
+archive(native, plugin) = "monomorphic.cmxs"
+exists_if = "monomorphic.cma"
+# OASIS_STOP
+
