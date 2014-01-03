@@ -19,12 +19,25 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *)
 
-let (=) () () = ()
-let (<>) () () = ()
-let (<) () () = ()
-let (>) () () = ()
-let (<=) () () = ()
-let (>=) () () = ()
-let compare () () = ()
-let min () () = ()
-let max () () = ()
+module None = struct
+  let (=) () () = ()
+  let (<>) () () = ()
+  let (<) () () = ()
+  let (>) () () = ()
+  let (<=) () () = ()
+  let (>=) () () = ()
+  let compare () () = ()
+  let min () () = ()
+  let max () () = ()
+end
+
+module type TY = sig
+  type t
+end
+
+module Make (Ty : TY) = struct
+  include Pervasives
+end
+
+module Int = Make(struct type t = int end)
+module Float = Make(struct type t = float end)

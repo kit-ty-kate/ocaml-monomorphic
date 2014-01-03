@@ -19,12 +19,33 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *)
 
-val (=) : unit -> unit -> unit
-val (<>) : unit -> unit -> unit
-val (<) : unit -> unit -> unit
-val (>) : unit -> unit -> unit
-val (<=) : unit -> unit -> unit
-val (>=) : unit -> unit -> unit
-val compare : unit -> unit -> unit
-val min : unit -> unit -> unit
-val max : unit -> unit -> unit
+module None : sig
+  val (=) : unit -> unit -> unit
+  val (<>) : unit -> unit -> unit
+  val (<) : unit -> unit -> unit
+  val (>) : unit -> unit -> unit
+  val (<=) : unit -> unit -> unit
+  val (>=) : unit -> unit -> unit
+  val compare : unit -> unit -> unit
+  val min : unit -> unit -> unit
+  val max : unit -> unit -> unit
+end
+
+module type TY = sig
+  type t
+end
+
+module Make (Ty : TY) : sig
+  val (=) : Ty.t -> Ty.t -> bool
+  val (<>) : Ty.t -> Ty.t -> bool
+  val (<) : Ty.t -> Ty.t -> bool
+  val (>) : Ty.t -> Ty.t -> bool
+  val (<=) : Ty.t -> Ty.t -> bool
+  val (>=) : Ty.t -> Ty.t -> bool
+  val compare : Ty.t -> Ty.t -> int
+  val min : Ty.t -> Ty.t -> Ty.t
+  val max : Ty.t -> Ty.t -> Ty.t
+end
+
+module Int : module type of Make(struct type t = int end)
+module Float : module type of Make(struct type t = float end)
