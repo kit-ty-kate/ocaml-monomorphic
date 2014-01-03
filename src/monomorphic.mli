@@ -19,6 +19,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *)
 
+(** Almost complete removal of the functions by shadowing *)
 module None : sig
   val (=) : unit -> unit -> unit
   val (<>) : unit -> unit -> unit
@@ -35,6 +36,7 @@ module type TY = sig
   type t
 end
 
+(** Shadow with specialised functions using [TY.t] *)
 module Make (Ty : TY) : sig
   val (=) : Ty.t -> Ty.t -> bool
   val (<>) : Ty.t -> Ty.t -> bool
@@ -47,5 +49,8 @@ module Make (Ty : TY) : sig
   val max : Ty.t -> Ty.t -> Ty.t
 end
 
+(** Specialize functions with [int] *)
 module Int : module type of Make(struct type t = int end)
+
+(** Specialize functions with [float] *)
 module Float : module type of Make(struct type t = float end)
