@@ -41,3 +41,11 @@ end
 
 module Int = Make(struct type t = int end)
 module Float = Make(struct type t = float end)
+
+type 'a eq = 'a -> 'a -> bool
+module List = struct
+  include List
+  let mem a ~f xs  = xs |> List.exists (f a)
+  let assoc a ~f xs = xs |> List.find (fun (k,_) -> f a k) |> snd
+  let mem_assoc a ~f xs = xs |> List.exists (fun (k, _) -> f k a)
+end

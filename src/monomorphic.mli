@@ -54,3 +54,11 @@ module Int : module type of Make(struct type t = int end)
 
 (** Specialize functions with [float] *)
 module Float : module type of Make(struct type t = float end)
+
+type 'a eq = 'a -> 'a -> bool
+module List : sig
+  include module type of List
+  val mem : 'a -> f:'a eq -> 'a list -> bool
+  val assoc : 'k -> f:'k eq -> ('k * 'a) list -> 'a
+  val mem_assoc : 'k -> f:'k eq -> ('k * _) list -> bool
+end
