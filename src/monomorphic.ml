@@ -42,10 +42,18 @@ end
 module Int = Make(struct type t = int end)
 module Float = Make(struct type t = float end)
 
-type 'a eq = 'a -> 'a -> bool
-module List = struct
-  include List
-  let mem a ~f xs  = xs |> List.exists (f a)
-  let assoc a ~f xs = xs |> List.find (fun (k,_) -> f a k) |> snd
-  let mem_assoc a ~f xs = xs |> List.exists (fun (k, _) -> f k a)
+module Stdlib = struct
+  type 'a eq = 'a -> 'a -> bool
+
+  module List = struct
+    include List
+
+    let mem a ~f xs  = List.exists (f a) xs
+    let assoc a ~f xs = snd (List.find (fun (k,_) -> f a k) xs)
+    let mem_assoc a ~f xs = List.exists (fun (k, _) -> f k a) xs
+    let rec remove_assoc a ~f = function
+      | [] -> []
+      | ((k, _) as pair) :: xs ->
+          if f a k then xs else pair :: remove_assoc a ~f xs
+  end
 end
