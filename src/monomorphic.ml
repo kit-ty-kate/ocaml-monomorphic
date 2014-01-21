@@ -56,4 +56,6 @@ module Stdlib = struct
       | ((k, _) as pair) :: xs ->
           if f a k then xs else pair :: remove_assoc a ~f xs
   end
+
+  include None
 end

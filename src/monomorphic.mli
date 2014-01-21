@@ -66,4 +66,6 @@ module Stdlib : sig
     val mem_assoc : 'k -> f:'k eq -> ('k * _) list -> bool
     val remove_assoc : 'k -> f:'k eq -> ('k * 'a) list -> ('k * 'a) list
   end
+
+  include module type of None
 end
