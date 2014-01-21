@@ -42,9 +42,9 @@ end
 module Int = Make(struct type t = int end)
 module Float = Make(struct type t = float end)
 
-module Stdlib = struct
-  type 'a eq = 'a -> 'a -> bool
+type 'a eq = 'a -> 'a -> bool
 
+module Stdlib = struct
   module List = struct
     include List
 

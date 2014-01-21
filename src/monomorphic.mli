@@ -55,9 +55,9 @@ module Int : module type of Make(struct type t = int end)
 (** Specialize functions with [float] *)
 module Float : module type of Make(struct type t = float end)
 
-module Stdlib : sig
-  type 'a eq = 'a -> 'a -> bool
+type 'a eq = 'a -> 'a -> bool
 
+module Stdlib : sig
   module List : sig
     include module type of List
 
