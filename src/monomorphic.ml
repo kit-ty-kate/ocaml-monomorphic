@@ -44,17 +44,35 @@ module Float = Make(struct type t = float end)
 
 type 'a eq = 'a -> 'a -> bool
 
-module Stdlib = struct
-  module List = struct
-    include List
+module List = struct
+  include List
 
-    let mem a ~f xs  = List.exists (f a) xs
-    let assoc a ~f xs = snd (List.find (fun (k,_) -> f a k) xs)
-    let mem_assoc a ~f xs = List.exists (fun (k, _) -> f k a) xs
-    let rec remove_assoc a ~f = function
-      | [] -> []
-      | ((k, _) as pair) :: xs ->
-          if f a k then xs else pair :: remove_assoc a ~f xs
+  let mem a ~f xs  = List.exists (f a) xs
+  let assoc a ~f xs = snd (List.find (fun (k,_) -> f a k) xs)
+  let mem_assoc a ~f xs = List.exists (fun (k, _) -> f k a) xs
+  let rec remove_assoc a ~f = function
+    | [] -> []
+    | ((k, _) as pair) :: xs ->
+        if f a k then xs else pair :: remove_assoc a ~f xs
+end
+
+module Stdlib = struct
+  module List = List
+
+  module StdLabels = struct
+    include (StdLabels :
+               module type of StdLabels
+             with module List := StdLabels.List
+            )
+
+    module List = struct
+      include StdLabels.List
+
+      let mem a ~f ~set = List.mem a ~f set
+      let assoc a ~f xs = List.assoc a ~f xs
+      let mem_assoc a ~f ~map = List.mem_assoc a ~f map
+      let remove_assoc a ~f xs = List.remove_assoc a ~f xs
+    end
   end
 
   include None

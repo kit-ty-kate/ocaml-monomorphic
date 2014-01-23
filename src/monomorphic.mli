@@ -67,5 +67,21 @@ module Stdlib : sig
     val remove_assoc : 'k -> f:'k eq -> ('k * 'a) list -> ('k * 'a) list
   end
 
+  module StdLabels : sig
+    include module type of (StdLabels :
+                              module type of StdLabels
+                            with module List := StdLabels.List
+                           )
+
+    module List : sig
+      include module type of StdLabels.List
+
+      val mem : 'a -> f:'a eq -> set:'a list -> bool
+      val assoc : 'k -> f:'k eq -> ('k * 'a) list -> 'a
+      val mem_assoc : 'k -> f:'k eq -> map:('k * _) list -> bool
+      val remove_assoc : 'k -> f:'k eq -> ('k * 'a) list -> ('k * 'a) list
+    end
+  end
+
   include module type of None
 end
