@@ -47,13 +47,13 @@ type 'a eq = 'a -> 'a -> bool
 module List = struct
   include List
 
-  let mem a ~f xs  = List.exists (f a) xs
-  let assoc a ~f xs = snd (List.find (fun (k,_) -> f a k) xs)
-  let mem_assoc a ~f xs = List.exists (fun (k, _) -> f k a) xs
-  let rec remove_assoc a ~f = function
+  let mem a ~eq xs  = List.exists (eq a) xs
+  let assoc a ~eq xs = snd (List.find (fun (k,_) -> eq a k) xs)
+  let mem_assoc a ~eq xs = List.exists (fun (k, _) -> eq k a) xs
+  let rec remove_assoc a ~eq = function
     | [] -> []
     | ((k, _) as pair) :: xs ->
-        if f a k then xs else pair :: remove_assoc a ~f xs
+        if eq a k then xs else pair :: remove_assoc a ~eq xs
 end
 
 module Stdlib = struct
@@ -68,10 +68,10 @@ module Stdlib = struct
     module List = struct
       include StdLabels.List
 
-      let mem a ~f ~set = List.mem a ~f set
-      let assoc a ~f xs = List.assoc a ~f xs
-      let mem_assoc a ~f ~map = List.mem_assoc a ~f map
-      let remove_assoc a ~f xs = List.remove_assoc a ~f xs
+      let mem a ~eq ~set = List.mem a ~eq set
+      let assoc a ~eq xs = List.assoc a ~eq xs
+      let mem_assoc a ~eq ~map = List.mem_assoc a ~eq map
+      let remove_assoc a ~eq xs = List.remove_assoc a ~eq xs
     end
   end
 

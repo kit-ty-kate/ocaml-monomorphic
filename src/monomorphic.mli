@@ -61,10 +61,10 @@ module Stdlib : sig
   module List : sig
     include module type of List
 
-    val mem : 'a -> f:'a eq -> 'a list -> bool
-    val assoc : 'k -> f:'k eq -> ('k * 'a) list -> 'a
-    val mem_assoc : 'k -> f:'k eq -> ('k * _) list -> bool
-    val remove_assoc : 'k -> f:'k eq -> ('k * 'a) list -> ('k * 'a) list
+    val mem : 'a -> eq:'a eq -> 'a list -> bool
+    val assoc : 'k -> eq:'k eq -> ('k * 'a) list -> 'a
+    val mem_assoc : 'k -> eq:'k eq -> ('k * _) list -> bool
+    val remove_assoc : 'k -> eq:'k eq -> ('k * 'a) list -> ('k * 'a) list
   end
 
   module StdLabels : sig
@@ -76,10 +76,10 @@ module Stdlib : sig
     module List : sig
       include module type of StdLabels.List
 
-      val mem : 'a -> f:'a eq -> set:'a list -> bool
-      val assoc : 'k -> f:'k eq -> ('k * 'a) list -> 'a
-      val mem_assoc : 'k -> f:'k eq -> map:('k * _) list -> bool
-      val remove_assoc : 'k -> f:'k eq -> ('k * 'a) list -> ('k * 'a) list
+      val mem : 'a -> eq:'a eq -> set:'a list -> bool
+      val assoc : 'k -> eq:'k eq -> ('k * 'a) list -> 'a
+      val mem_assoc : 'k -> eq:'k eq -> map:('k * _) list -> bool
+      val remove_assoc : 'k -> eq:'k eq -> ('k * 'a) list -> ('k * 'a) list
     end
   end
 
