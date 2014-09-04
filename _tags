@@ -20,3 +20,5 @@
 <src/monomorphic.{cma,cmxa}>: oasis_library_monomorphic_native
 <src/*.ml{,i}>: oasis_library_monomorphic_native
 # OASIS_STOP
+
+true: safe_string
