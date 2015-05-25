@@ -1,24 +1,4 @@
 # OASIS_START
-# DO NOT EDIT (digest: 789fbb184bb78bd2e755081b11bc224d)
-# Ignore VCS directories, you can use the same kind of rule outside
-# OASIS_START/STOP if you want to exclude directories that contains
-# useless stuff for the build process
-<**/.svn>: -traverse
-<**/.svn>: not_hygienic
-".bzr": -traverse
-".bzr": not_hygienic
-".hg": -traverse
-".hg": not_hygienic
-".git": -traverse
-".git": not_hygienic
-"_darcs": -traverse
-"_darcs": not_hygienic
-# Library monomorphic
-"src/monomorphic.cmxs": use_monomorphic
-<src/monomorphic.{cma,cmxa}>: oasis_library_monomorphic_byte
-<src/*.ml{,i}>: oasis_library_monomorphic_byte
-<src/monomorphic.{cma,cmxa}>: oasis_library_monomorphic_native
-<src/*.ml{,i}>: oasis_library_monomorphic_native
 # OASIS_STOP
 
 true: safe_string
