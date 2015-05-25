@@ -19,51 +19,40 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *)
 
-module type TY = sig
-  type t
+open Containers
+
+module Bool = struct
+  include Bool
+
+  module Infix = Monomorphic.MakeInfix(struct type t = bool end)
+  module Cmp = Monomorphic.MakeCmp(struct type t = bool end)
 end
 
-module MakeInfix (Ty : TY) = Pervasives
-module MakeCmp (Ty : TY) = Pervasives
-module Make (Ty : TY) = Pervasives
+module Int = struct
+  include Int
 
-module None = Pervasives
-
-module Int = Pervasives
-module Float = Pervasives
-
-type 'a eq = 'a -> 'a -> bool
-
-module List = struct
-  include List
-
-  let mem a ~eq xs  = List.exists (eq a) xs
-  let assoc a ~eq xs = snd (List.find (fun (k,_) -> eq a k) xs)
-  let mem_assoc a ~eq xs = List.exists (fun (k, _) -> eq k a) xs
-  let rec remove_assoc a ~eq = function
-    | [] -> []
-    | ((k, _) as pair) :: xs ->
-        if eq a k then xs else pair :: remove_assoc a ~eq xs
+  module Infix = Monomorphic.MakeInfix(struct type t = int end)
+  module Cmp = Monomorphic.MakeCmp(struct type t = int end)
 end
 
-module Stdlib = struct
-  module List = List
+module Float = struct
+  include Float
 
-  module StdLabels = struct
-    include (StdLabels :
-               module type of StdLabels
-             with module List := StdLabels.List
-            )
-
-    module List = struct
-      include StdLabels.List
-
-      let mem a ~eq ~set = List.mem a ~eq set
-      let assoc a ~eq xs = List.assoc a ~eq xs
-      let mem_assoc a ~eq ~map = List.mem_assoc a ~eq map
-      let remove_assoc a ~eq xs = List.remove_assoc a ~eq xs
-    end
-  end
-
-  include None
+  module Infix = Monomorphic.MakeInfix(struct type t = float end)
+  module Cmp = Monomorphic.MakeCmp(struct type t = float end)
 end
+
+module String = struct
+  include String
+
+  module Infix = Monomorphic.MakeInfix(struct type t = string end)
+  module Cmp = Monomorphic.MakeCmp(struct type t = string end)
+end
+
+include (Containers :
+           module type of Containers
+         with module Bool := Bool
+          and module Int := Int
+          and module Float := Float
+          and module String := String
+        )

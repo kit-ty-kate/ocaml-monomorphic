@@ -19,35 +19,33 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *)
 
-(** Almost complete removal of the functions by shadowing *)
-module None : sig
-  val (=) : unit -> unit -> unit
-  val (<>) : unit -> unit -> unit
-  val (<) : unit -> unit -> unit
-  val (>) : unit -> unit -> unit
-  val (<=) : unit -> unit -> unit
-  val (>=) : unit -> unit -> unit
-  val compare : unit -> unit -> unit
-  val min : unit -> unit -> unit
-  val max : unit -> unit -> unit
-end
-
 module type TY = sig
   type t
 end
 
-(** Shadow with specialised functions using [TY.t] *)
-module Make (Ty : TY) : sig
+module MakeInfix (Ty : TY) : sig
   val (=) : Ty.t -> Ty.t -> bool
   val (<>) : Ty.t -> Ty.t -> bool
   val (<) : Ty.t -> Ty.t -> bool
   val (>) : Ty.t -> Ty.t -> bool
   val (<=) : Ty.t -> Ty.t -> bool
   val (>=) : Ty.t -> Ty.t -> bool
+end
+
+module MakeCmp (Ty : TY) : sig
   val compare : Ty.t -> Ty.t -> int
   val min : Ty.t -> Ty.t -> Ty.t
   val max : Ty.t -> Ty.t -> Ty.t
 end
+
+(** Shadow with specialised functions using [TY.t] *)
+module Make (Ty : TY) : sig
+  include module type of MakeInfix(Ty)
+  include module type of MakeCmp(Ty)
+end
+
+(** Almost complete removal of the functions by shadowing *)
+module None : module type of Make(struct type t = unit end)
 
 (** Specialize functions with [int] *)
 module Int : module type of Make(struct type t = int end)
