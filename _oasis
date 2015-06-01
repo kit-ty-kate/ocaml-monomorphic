@@ -17,7 +17,6 @@ Library "monomorphic"
   Modules:
     Monomorphic
   ByteOpt: -w A
-  NativeOpt: -w A
 
 Library "monomorphic-containers"
   FindlibParent: monomorphic
@@ -29,4 +28,3 @@ Library "monomorphic-containers"
     monomorphic,
     containers
   ByteOpt: -w A
-  NativeOpt: -w A
