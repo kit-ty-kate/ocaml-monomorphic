@@ -19,40 +19,74 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *)
 
-open Containers
 
-module Bool = struct
-  include Bool
 
-  module Infix = Monomorphic.MakeInfix(struct type t = bool end)
-  module Cmp = Monomorphic.MakeCmp(struct type t = bool end)
+module Open = struct
+  open Containers
+
+  module Bool = struct
+    include Bool
+
+    module Infix = Monomorphic.MakeInfix(struct type t = bool end)
+    module Cmp = Monomorphic.MakeCmp(struct type t = bool end)
+  end
+
+  module Int = struct
+    include Int
+
+    module Infix = Monomorphic.MakeInfix(struct type t = int end)
+    module Cmp = Monomorphic.MakeCmp(struct type t = int end)
+  end
+
+  module Float = struct
+    include Float
+
+    module Infix = Monomorphic.MakeInfix(struct type t = float end)
+    module Cmp = Monomorphic.MakeCmp(struct type t = float end)
+  end
+
+  module String = struct
+    include String
+
+    module Infix = Monomorphic.MakeInfix(struct type t = string end)
+    module Cmp = Monomorphic.MakeCmp(struct type t = string end)
+  end
+
+  include (Containers :
+             module type of Containers
+           with module Bool := Bool
+            and module Int := Int
+            and module Float := Float
+            and module String := String
+          )
 end
 
-module Int = struct
-  include Int
+module Named = struct
+  module CCBool = struct
+    include CCBool
 
-  module Infix = Monomorphic.MakeInfix(struct type t = int end)
-  module Cmp = Monomorphic.MakeCmp(struct type t = int end)
+    module Infix = Monomorphic.MakeInfix(struct type t = bool end)
+    module Cmp = Monomorphic.MakeCmp(struct type t = bool end)
+  end
+
+  module CCInt = struct
+    include CCInt
+
+    module Infix = Monomorphic.MakeInfix(struct type t = int end)
+    module Cmp = Monomorphic.MakeCmp(struct type t = int end)
+  end
+
+  module CCFloat = struct
+    include CCFloat
+
+    module Infix = Monomorphic.MakeInfix(struct type t = float end)
+    module Cmp = Monomorphic.MakeCmp(struct type t = float end)
+  end
+
+  module CCString = struct
+    include CCString
+
+    module Infix = Monomorphic.MakeInfix(struct type t = string end)
+    module Cmp = Monomorphic.MakeCmp(struct type t = string end)
+  end
 end
-
-module Float = struct
-  include Float
-
-  module Infix = Monomorphic.MakeInfix(struct type t = float end)
-  module Cmp = Monomorphic.MakeCmp(struct type t = float end)
-end
-
-module String = struct
-  include String
-
-  module Infix = Monomorphic.MakeInfix(struct type t = string end)
-  module Cmp = Monomorphic.MakeCmp(struct type t = string end)
-end
-
-include (Containers :
-           module type of Containers
-         with module Bool := Bool
-          and module Int := Int
-          and module Float := Float
-          and module String := String
-        )
