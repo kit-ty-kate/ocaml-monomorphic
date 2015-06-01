@@ -21,6 +21,7 @@ Library "monomorphic"
 Library "monomorphic-containers"
   FindlibParent: monomorphic
   FindlibName: containers
+  Build$: flag(containers)
   Path: src/containers
   Modules:
     Monomorphic_containers
