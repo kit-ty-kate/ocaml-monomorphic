@@ -4,4 +4,5 @@ sudo apt-get install -qq ocaml ocaml-native-compilers opam
 export OPAMYES=1
 opam init
 eval `opam config env`
-opam pin add --kind=git monomorphic .
+opam pin add -n --kind=git monomorphic .
+opam install monomorphic.dev
