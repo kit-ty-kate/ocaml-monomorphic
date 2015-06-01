@@ -1,0 +1,23 @@
+# OASIS_START
+# DO NOT EDIT (digest: 12d284648bbf762a1514f2366f646338)
+version = "1.2"
+description =
+"A small library used to shadow polymorphic operators (and functions) contained in Pervasives."
+archive(byte) = "monomorphic.cma"
+archive(byte, plugin) = "monomorphic.cma"
+archive(native) = "monomorphic.cmxa"
+archive(native, plugin) = "monomorphic.cmxs"
+exists_if = "monomorphic.cma"
+package "containers" (
+ version = "1.2"
+ description =
+ "A small library used to shadow polymorphic operators (and functions) contained in Pervasives."
+ requires = "monomorphic containers"
+ archive(byte) = "monomorphic-containers.cma"
+ archive(byte, plugin) = "monomorphic-containers.cma"
+ archive(native) = "monomorphic-containers.cmxa"
+ archive(native, plugin) = "monomorphic-containers.cmxs"
+ exists_if = "monomorphic-containers.cma"
+)
+# OASIS_STOP
+

@@ -1,4 +1,29 @@
 # OASIS_START
+# DO NOT EDIT (digest: 1a7cf743ea02399fa74efaa178e227f2)
+# Ignore VCS directories, you can use the same kind of rule outside
+# OASIS_START/STOP if you want to exclude directories that contains
+# useless stuff for the build process
+true: annot, bin_annot
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library monomorphic
+"src/monomorphic.cmxs": use_monomorphic
+<src/monomorphic.{cma,cmxa}>: oasis_library_monomorphic_byte
+<src/*.ml{,i,y}>: oasis_library_monomorphic_byte
+# Library monomorphic-containers
+"src/containers/monomorphic-containers.cmxs": use_monomorphic-containers
+<src/containers/monomorphic-containers.{cma,cmxa}>: oasis_library_monomorphic_containers_byte
+<src/containers/*.ml{,i,y}>: oasis_library_monomorphic_containers_byte
+<src/containers/*.ml{,i,y}>: pkg_containers
+<src/containers/*.ml{,i,y}>: use_monomorphic
 # OASIS_STOP
 
 true: safe_string
