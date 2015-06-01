@@ -16,6 +16,15 @@ depends: [
   "ocamlfind" {build}
   "oasis" {build} {>= "0.4.5"}
 ]
-depexts: [
+depopts: [
   "containers"
+]
+tags: [
+  "polymorphic"
+  "compare"
+  "equal"
+  "equality"
+  "monomorphic"
+  "unsafe"
+  "safe"
 ]
