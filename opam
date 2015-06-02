@@ -14,7 +14,7 @@ build: [
 ]
 depends: [
   "ocamlfind" {build}
-  "oasis" {build} {>= "0.4.5"}
+  "oasis" {build & >= "0.4.5"}
 ]
 depopts: [
   "containers"
