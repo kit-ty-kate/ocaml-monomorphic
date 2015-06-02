@@ -9,6 +9,7 @@ esac
 sudo add-apt-repository --yes ppa:$ppa
 sudo apt-get update -qq
 sudo apt-get install -qq ocaml ocaml-native-compilers
+wget https://raw.github.com/ocaml/opam/master/shell/opam_installer.sh
 sh ./opam_installer.sh /usr/local/bin system # The ppa is not up-to-date
 export OPAMYES=1
 opam init
