@@ -8,10 +8,9 @@ esac
 
 sudo add-apt-repository --yes ppa:$ppa
 sudo apt-get update -qq
-sudo apt-get install -qq ocaml ocaml-native-compilers camlp4-extra
-wget https://raw.github.com/ocaml/opam/master/shell/opam_installer.sh
+sudo apt-get install -qq ocaml ocaml-native-compilers camlp4-extra opam
 export OPAMYES=1
-sh ./opam_installer.sh /usr/local/bin system # The ppa is not up-to-date
+opam init
 eval `opam config env`
 opam pin add -n --kind=git monomorphic .
 opam install monomorphic.dev
