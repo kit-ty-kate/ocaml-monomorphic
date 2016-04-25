@@ -8,24 +8,8 @@ BuildTools: ocamlbuild
 Plugins: META (0.3), DevFiles (0.3)
 AlphaFeatures: compiled_setup_ml
 
-Flag "containers"
-  Description: Build modules which depend on Containers
-  Default: false
-
 Library "monomorphic"
   Path: src
   Modules:
     Monomorphic
-  ByteOpt: -w A
-
-Library "monomorphic-containers"
-  FindlibParent: monomorphic
-  FindlibName: containers
-  Build$: flag(containers)
-  Path: src/containers
-  Modules:
-    Monomorphic_containers
-  BuildDepends:
-    monomorphic,
-    containers
   ByteOpt: -w A
