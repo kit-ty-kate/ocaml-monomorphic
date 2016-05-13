@@ -8,18 +8,10 @@ homepage: "https://github.com/jpdeplaix/ocaml-monomorphic"
 dev-repo: "https://github.com/jpdeplaix/ocaml-monomorphic.git"
 bug-reports: "https://github.com/jpdeplaix/ocaml-monomorphic/issues"
 build: [
-  ["./configure" "--prefix" prefix]
   [make]
 ]
-install: [
-  [make "install"]
-]
-remove: [
-  ["ocamlfind" "remove" "monomorphic"]
-]
 depends: [
-  "ocamlfind"
-  "oasis" {build & >= "0.4.5"}
+  "ocamlbuild-pkg" {build}
 ]
 tags: [
   "polymorphic"
