@@ -13,4 +13,4 @@ export OPAMYES=1
 opam init
 eval `opam config env`
 opam pin add -n --kind=git monomorphic .
-opam install monomorphic.dev
+opam install monomorphic
