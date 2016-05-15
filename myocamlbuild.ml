@@ -16,7 +16,7 @@ let () =
         Pkg.private_modules = [];
         Pkg.subpackages = [];
       };
-      Pkg.bins = [
-      ];
+      Pkg.bins = [];
+      Pkg.files = [];
     }
   )
