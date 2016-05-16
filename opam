@@ -11,7 +11,7 @@ build: [
   [make]
 ]
 depends: [
-  "ocamlbuild-pkg" {build} {>= "0.2"}
+  "ocamlbuild-pkg" {build & >= "0.2"}
 ]
 tags: [
   "polymorphic"
