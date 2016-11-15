@@ -4,7 +4,7 @@ let lib =
   Pkg.Lib.create
     ~descr:"A small library used to shadow polymorphic \
             operators (and functions) contained in Pervasives"
-    ~version:"1.4"
+    ~version:"1.5+dev"
     ~requires:[]
     ~name:"monomorphic"
     ~dir:"src"
