@@ -3,3 +3,7 @@ S src
 S src/containers
 B _build/src
 B _build/src/containers
+
+PKG ocamlbuild-pkg
+S .
+B _build

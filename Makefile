@@ -1,5 +1,5 @@
 all:
-	ocamlbuild -use-ocamlfind -plugin-tag "package(ocamlbuild-pkg)"
+	ocamlbuild -use-ocamlfind -plugin-tag "package(ocamlbuild-pkg)" monomorphic
 
 clean:
 	ocamlbuild -clean

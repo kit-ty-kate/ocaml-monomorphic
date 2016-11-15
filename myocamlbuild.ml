@@ -1,22 +1,25 @@
 open Ocamlbuild_pkg
 
+let lib =
+  Pkg.Lib.create
+    ~descr:"A small library used to shadow polymorphic \
+            operators (and functions) contained in Pervasives"
+    ~version:"1.3+dev"
+    ~requires:[]
+    ~name:"monomorphic"
+    ~dir:"src"
+    ~modules:[
+      "monomorphic";
+    ]
+    ()
+
+let monomorphic =
+  Pkg.create
+    ~name:"monomorphic"
+    ~libs:[lib]
+    ()
+
 let () =
-  Ocamlbuild_plugin.dispatch (
-    Pkg.dispatcher {
-      Pkg.pkg_name = "monomorphic";
-      Pkg.lib = Some {
-        Pkg.descr = "A small library used to shadow polymorphic operators (and functions) contained in Pervasives";
-        Pkg.version = "1.3+dev";
-        Pkg.requires = [];
-        Pkg.name = "monomorphic";
-        Pkg.dir = "src";
-        Pkg.modules = [
-          "monomorphic";
-        ];
-        Pkg.private_modules = [];
-        Pkg.subpackages = [];
-      };
-      Pkg.bins = [];
-      Pkg.files = [];
-    }
+  Ocamlbuild_plugin.dispatch (fun hook ->
+    Pkg.dispatcher monomorphic hook;
   )
