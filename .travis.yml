@@ -1,11 +1,16 @@
 language: c
-sudo: required
-dist: trusty
+sudo: false
 script: bash -ex .travis-ci.sh
 env:
   matrix:
-    - OCAML_VERSION=4.04.0+safe-string
-    - OCAML_VERSION=4.04.0
-    - OCAML_VERSION=4.03.0
-    - OCAML_VERSION=4.02.3
     - OCAML_VERSION=4.01.0
+    - OCAML_VERSION=4.02.3
+    - OCAML_VERSION=4.03.0
+    - OCAML_VERSION=4.03.0+flambda
+    - OCAML_VERSION=4.04.0
+    - OCAML_VERSION=4.04.0+flambda
+    - OCAML_VERSION=4.04.0+safe-string
+cache:
+  directories:
+    - $HOME/opam-cache
+    - $HOME/opam-bin
