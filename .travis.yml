@@ -1,14 +1,18 @@
 language: c
-sudo: false
-script: bash -ex .travis-ci.sh
+install: wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-docker.sh
+script: bash -ex .travis-docker.sh
+services:
+- docker
 env:
+  global:
+  - PINS="monomorphic:."
+  - DISTRO="debian-stable"
   matrix:
-    - OCAML_VERSION=4.01.0
-    - OCAML_VERSION=4.02.3
-    - OCAML_VERSION=4.03.0
-    - OCAML_VERSION=4.04.2+safe-string
-    - OCAML_VERSION=4.05.0
-cache:
-  directories:
-    - $HOME/opam-cache
-    - $HOME/opam-bin
+  - PACKAGE="monomorphic" OCAML_VERSION="3.12.1"
+  - PACKAGE="monomorphic" OCAML_VERSION="4.00.1"
+  - PACKAGE="monomorphic" OCAML_VERSION="4.01.0"
+  - PACKAGE="monomorphic" OCAML_VERSION="4.02.3"
+  - PACKAGE="monomorphic" OCAML_VERSION="4.03.0"
+  - PACKAGE="monomorphic" OCAML_VERSION="4.04.2"
+  - PACKAGE="monomorphic" OCAML_VERSION="4.05.0"
+  - PACKAGE="monomorphic" OCAML_VERSION="4.06.0"
