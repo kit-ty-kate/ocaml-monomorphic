@@ -1,6 +1,0 @@
-(jbuild_version 1)
-
-(library
- ((name monomorphic)
-  (public_name monomorphic)
-  (flags (:standard -safe-string -w A))))

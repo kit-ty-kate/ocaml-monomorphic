@@ -7,9 +7,9 @@ authors: "Kate <kit.ty.kate@disroot.org>"
 homepage: "https://github.com/kit-ty-kate/ocaml-monomorphic"
 dev-repo: "https://github.com/kit-ty-kate/ocaml-monomorphic.git"
 bug-reports: "https://github.com/kit-ty-kate/ocaml-monomorphic/issues"
-build: ["jbuilder" "build" "-p" name "-j" jobs]
+build: ["dune" "build" "-p" name "-j" jobs]
 depends: [
-  "jbuilder" {build}
+  "dune" {build}
 ]
 available: [ocaml-version >= "4.02.3"]
 tags: [
