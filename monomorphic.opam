@@ -1,17 +1,16 @@
-opam-version: "1.2"
-name: "monomorphic"
-version: "1.5"
+opam-version: "2.0"
 license: "MIT"
+synopsis: "A small library used to shadow polymorphic operators (and functions) contained in the stdlib"
 maintainer: "Kate <kit.ty.kate@disroot.org>"
 authors: "Kate <kit.ty.kate@disroot.org>"
 homepage: "https://github.com/kit-ty-kate/ocaml-monomorphic"
-dev-repo: "https://github.com/kit-ty-kate/ocaml-monomorphic.git"
+dev-repo: "git://github.com/kit-ty-kate/ocaml-monomorphic.git"
 bug-reports: "https://github.com/kit-ty-kate/ocaml-monomorphic/issues"
 build: ["dune" "build" "-p" name "-j" jobs]
 depends: [
-  "dune" {build}
+  "ocaml" {>= "4.02.3"}
+  "dune" {>= "1.0"}
 ]
-available: [ocaml-version >= "4.02.3"]
 tags: [
   "polymorphic"
   "compare"
