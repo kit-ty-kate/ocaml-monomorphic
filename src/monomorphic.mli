@@ -1,29 +1,19 @@
 (* Copyright (c) 2013-2017 Kate <kit.ty.kate@disroot.org>. *)
 (* See the LICENSE file at the top-level directory. *)
 
-module type TY = sig
-  type t
-end
+[@@@ocaml.alert "-deprecated"]
 
-module MakeInfix (Ty : TY) : sig
+(** Shadow with specialised functions using [Ty.t] *)
+module Make (Ty : sig type t end) : sig
   val (=) : Ty.t -> Ty.t -> bool
   val (<>) : Ty.t -> Ty.t -> bool
   val (<) : Ty.t -> Ty.t -> bool
   val (>) : Ty.t -> Ty.t -> bool
   val (<=) : Ty.t -> Ty.t -> bool
   val (>=) : Ty.t -> Ty.t -> bool
-end
-
-module MakeCmp (Ty : TY) : sig
   val compare : Ty.t -> Ty.t -> int
   val min : Ty.t -> Ty.t -> Ty.t
   val max : Ty.t -> Ty.t -> Ty.t
-end
-
-(** Shadow with specialised functions using [TY.t] *)
-module Make (Ty : TY) : sig
-  include module type of MakeInfix(Ty)
-  include module type of MakeCmp(Ty)
 end
 
 (** Almost complete removal of the functions by shadowing *)
@@ -32,36 +22,63 @@ module None : module type of Make(struct type t = unit end)
 (** Specialize functions with [int] *)
 module Int : module type of Make(struct type t = int end)
 
+(** Specialize functions with [bool] *)
+module Bool : module type of Make(struct type t = bool end)
+
 (** Specialize functions with [float] *)
 module Float : module type of Make(struct type t = float end)
 
-type 'a eq = 'a -> 'a -> bool
+(** Specialize functions with [string] *)
+module String : module type of Make(struct type t = string end)
 
 module Stdlib : sig
-  module List : sig
-    include module type of List
-
-    val mem : 'a -> eq:'a eq -> 'a list -> bool
-    val assoc : 'k -> eq:'k eq -> ('k * 'a) list -> 'a
-    val mem_assoc : 'k -> eq:'k eq -> ('k * _) list -> bool
-    val remove_assoc : 'k -> eq:'k eq -> ('k * 'a) list -> ('k * 'a) list
-  end
-
-  module StdLabels : sig
-    include module type of (StdLabels :
-                              module type of StdLabels
-                            with module List := StdLabels.List
+  module Stdlib : sig
+    include module type of (Stdlib :
+                              module type of Stdlib
+                            with module List := Stdlib.List
+                             and module ListLabels := Stdlib.ListLabels
+                             and module StdLabels := Stdlib.StdLabels
+                             and module Pervasives := Stdlib.Pervasives
+                             and type in_channel := Stdlib.in_channel
+                             and type out_channel := Stdlib.out_channel
                            )
 
     module List : sig
-      include module type of StdLabels.List
+      include module type of List
 
-      val mem : 'a -> eq:'a eq -> set:'a list -> bool
-      val assoc : 'k -> eq:'k eq -> ('k * 'a) list -> 'a
-      val mem_assoc : 'k -> eq:'k eq -> map:('k * _) list -> bool
-      val remove_assoc : 'k -> eq:'k eq -> ('k * 'a) list -> ('k * 'a) list
+      val mem : 'a -> eq:('a -> 'a -> bool) -> 'a list -> bool
+      val assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a
+      val assoc_opt : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a option
+      val mem_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * _) list -> bool
+      val remove_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> ('k * 'a) list
     end
+
+    module ListLabels : sig
+      include module type of ListLabels
+
+      val mem : 'a -> eq:('a -> 'a -> bool) -> set:'a list -> bool
+      val assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a
+      val assoc_opt : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a option
+      val mem_assoc : 'k -> eq:('k -> 'k -> bool) -> map:('k * _) list -> bool
+      val remove_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> ('k * 'a) list
+    end
+
+    module StdLabels : sig
+      include module type of (StdLabels :
+                                module type of StdLabels
+                              with module List := StdLabels.List
+                             )
+
+      module List = ListLabels
+    end
+
+    module Pervasives : sig
+      include module type of Pervasives
+      include module type of Int
+    end
+
+    include module type of Pervasives
   end
 
-  include module type of None
+  include module type of Stdlib
 end
