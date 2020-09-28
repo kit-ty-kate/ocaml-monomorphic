@@ -1,0 +1,29 @@
+2.0 (28/09/2020)
+----------------
+
+- Add support for the `Stdlib` module from OCaml 4.07
+
+- Use the `Int` implementation by default instead of `None` in the `Stdlib` module.
+
+- Remove the `MakeInfix`, `MakeCmp` modules and `TY` module type
+
+- Monomorphise `Stdlib.List.assoc_opt` from OCaml 4.05
+
+- Monomorphise the `Stdlib.ListLabels` and `Stdlib.Pervasives` modules properly
+
+- Add the `Bool` and `String` modules to monomorphise the equality functions
+  for `bool` and `string` respectively.
+
+- Now requires OCaml >= 4.08 and Dune >= 2.7
+
+
+1.5 and prior versions
+----------------------
+
+- Has the `MakeInfix`, `MakeCmp` and `Make` functors to create new comparators
+  for different types using polymorphic equality.
+
+- Has the `None`, `Int` and `Float` modules to monomorphise the equality
+  functions to those specific types.
+
+- Has the `Stdlib` module to shadow completely the whole standard library.
