@@ -14,7 +14,9 @@ module Make (Ty : TY) = Pervasives
 module None = Pervasives
 
 module Int = Pervasives
+module Bool = Pervasives
 module Float = Pervasives
+module String = Pervasives
 
 type 'a eq = 'a -> 'a -> bool
 

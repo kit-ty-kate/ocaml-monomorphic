@@ -34,8 +34,14 @@ module None : module type of Make(struct type t = unit end)
 (** Specialize functions with [int] *)
 module Int : module type of Make(struct type t = int end)
 
+(** Specialize functions with [bool] *)
+module Bool : module type of Make(struct type t = bool end)
+ 
 (** Specialize functions with [float] *)
 module Float : module type of Make(struct type t = float end)
+
+(** Specialize functions with [string] *)
+module String : module type of Make(struct type t = string end)
 
 type 'a eq = 'a -> 'a -> bool
 
