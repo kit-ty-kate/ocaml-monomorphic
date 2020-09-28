@@ -38,6 +38,7 @@ module Stdlib = struct
 
       let mem a ~eq xs  = List.exists (eq a) xs
       let assoc a ~eq xs = snd (List.find (fun (k,_) -> eq a k) xs)
+      let assoc_opt a ~eq xs = Option.map snd (List.find_opt (fun (k,_) -> eq a k) xs)
       let mem_assoc a ~eq xs = List.exists (fun (k, _) -> eq k a) xs
       let rec remove_assoc a ~eq = function
         | [] -> []
@@ -50,6 +51,7 @@ module Stdlib = struct
 
       let mem a ~eq ~set = List.mem a ~eq set
       let assoc a ~eq xs = List.assoc a ~eq xs
+      let assoc_opt a ~eq xs = List.assoc_opt a ~eq xs
       let mem_assoc a ~eq ~map = List.mem_assoc a ~eq map
       let remove_assoc a ~eq xs = List.remove_assoc a ~eq xs
     end

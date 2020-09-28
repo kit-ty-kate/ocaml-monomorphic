@@ -48,6 +48,7 @@ module Stdlib : sig
 
       val mem : 'a -> eq:('a -> 'a -> bool) -> 'a list -> bool
       val assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a
+      val assoc_opt : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a option
       val mem_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * _) list -> bool
       val remove_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> ('k * 'a) list
     end
@@ -57,6 +58,7 @@ module Stdlib : sig
 
       val mem : 'a -> eq:('a -> 'a -> bool) -> set:'a list -> bool
       val assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a
+      val assoc_opt : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a option
       val mem_assoc : 'k -> eq:('k -> 'k -> bool) -> map:('k * _) list -> bool
       val remove_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> ('k * 'a) list
     end
