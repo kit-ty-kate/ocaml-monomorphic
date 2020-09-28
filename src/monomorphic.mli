@@ -31,33 +31,52 @@ module Float : module type of Make(struct type t = float end)
 (** Specialize functions with [string] *)
 module String : module type of Make(struct type t = string end)
 
-type 'a eq = 'a -> 'a -> bool
-
 module Stdlib : sig
-  module List : sig
-    include module type of List
-
-    val mem : 'a -> eq:'a eq -> 'a list -> bool
-    val assoc : 'k -> eq:'k eq -> ('k * 'a) list -> 'a
-    val mem_assoc : 'k -> eq:'k eq -> ('k * _) list -> bool
-    val remove_assoc : 'k -> eq:'k eq -> ('k * 'a) list -> ('k * 'a) list
-  end
-
-  module StdLabels : sig
-    include module type of (StdLabels :
-                              module type of StdLabels
-                            with module List := StdLabels.List
+  module Stdlib : sig
+    include module type of (Stdlib :
+                              module type of Stdlib
+                            with module List := Stdlib.List
+                             and module ListLabels := Stdlib.ListLabels
+                             and module StdLabels := Stdlib.StdLabels
+                             and module Pervasives := Stdlib.Pervasives
+                             and type in_channel := Stdlib.in_channel
+                             and type out_channel := Stdlib.out_channel
                            )
 
     module List : sig
-      include module type of StdLabels.List
+      include module type of List
 
-      val mem : 'a -> eq:'a eq -> set:'a list -> bool
-      val assoc : 'k -> eq:'k eq -> ('k * 'a) list -> 'a
-      val mem_assoc : 'k -> eq:'k eq -> map:('k * _) list -> bool
-      val remove_assoc : 'k -> eq:'k eq -> ('k * 'a) list -> ('k * 'a) list
+      val mem : 'a -> eq:('a -> 'a -> bool) -> 'a list -> bool
+      val assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a
+      val mem_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * _) list -> bool
+      val remove_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> ('k * 'a) list
     end
+
+    module ListLabels : sig
+      include module type of ListLabels
+
+      val mem : 'a -> eq:('a -> 'a -> bool) -> set:'a list -> bool
+      val assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> 'a
+      val mem_assoc : 'k -> eq:('k -> 'k -> bool) -> map:('k * _) list -> bool
+      val remove_assoc : 'k -> eq:('k -> 'k -> bool) -> ('k * 'a) list -> ('k * 'a) list
+    end
+
+    module StdLabels : sig
+      include module type of (StdLabels :
+                                module type of StdLabels
+                              with module List := StdLabels.List
+                             )
+
+      module List = ListLabels
+    end
+
+    module Pervasives : sig
+      include module type of Pervasives
+      include module type of None
+    end
+
+    include module type of Pervasives
   end
 
-  include module type of None
+  include module type of Stdlib
 end

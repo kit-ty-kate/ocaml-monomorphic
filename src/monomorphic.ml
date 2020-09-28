@@ -21,38 +21,55 @@ module Bool : module type of Make(struct type t = bool end) = Pervasives
 module Float : module type of Make(struct type t = float end) = Pervasives
 module String : module type of Make(struct type t = string end) = Pervasives
 
-type 'a eq = 'a -> 'a -> bool
-
-module List = struct
-  include List
-
-  let mem a ~eq xs  = List.exists (eq a) xs
-  let assoc a ~eq xs = snd (List.find (fun (k,_) -> eq a k) xs)
-  let mem_assoc a ~eq xs = List.exists (fun (k, _) -> eq k a) xs
-  let rec remove_assoc a ~eq = function
-    | [] -> []
-    | ((k, _) as pair) :: xs ->
-        if eq a k then xs else pair :: remove_assoc a ~eq xs
-end
-
 module Stdlib = struct
-  module List = List
-
-  module StdLabels = struct
-    include (StdLabels :
-               module type of StdLabels
-             with module List := StdLabels.List
+  module Stdlib = struct
+    include (Stdlib :
+               module type of Stdlib
+             with module List := Stdlib.List
+              and module ListLabels := Stdlib.ListLabels
+              and module StdLabels := Stdlib.StdLabels
+              and module Pervasives := Stdlib.Pervasives
+              and type in_channel := Stdlib.in_channel
+              and type out_channel := Stdlib.out_channel
             )
 
     module List = struct
-      include StdLabels.List
+      include List
+
+      let mem a ~eq xs  = List.exists (eq a) xs
+      let assoc a ~eq xs = snd (List.find (fun (k,_) -> eq a k) xs)
+      let mem_assoc a ~eq xs = List.exists (fun (k, _) -> eq k a) xs
+      let rec remove_assoc a ~eq = function
+        | [] -> []
+        | ((k, _) as pair) :: xs ->
+            if eq a k then xs else pair :: remove_assoc a ~eq xs
+    end
+
+    module ListLabels = struct
+      include ListLabels
 
       let mem a ~eq ~set = List.mem a ~eq set
       let assoc a ~eq xs = List.assoc a ~eq xs
       let mem_assoc a ~eq ~map = List.mem_assoc a ~eq map
       let remove_assoc a ~eq xs = List.remove_assoc a ~eq xs
     end
+
+    module StdLabels = struct
+      include (StdLabels :
+                 module type of StdLabels
+               with module List := StdLabels.List
+              )
+
+      module List = ListLabels
+    end
+
+    module Pervasives = struct
+      include Pervasives
+      include None
+    end
+
+    include Pervasives
   end
 
-  include None
+  include Stdlib
 end
