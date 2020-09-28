@@ -10,6 +10,7 @@ tags: [
   "polymorphic" "compare" "equal" "equality" "monomorphic" "unsafe" "safe"
 ]
 homepage: "https://github.com/kit-ty-kate/ocaml-monomorphic"
+doc: "https://kit-ty-kate.github.io/ocaml-monomorphic"
 bug-reports: "https://github.com/kit-ty-kate/ocaml-monomorphic/issues"
 depends: [
   "dune" {>= "2.7"}

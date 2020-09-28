@@ -9,6 +9,8 @@ This library only requires:
 
 ## Usage
 
+:books: [API documentation](https://kit-ty-kate.github.io/ocaml-monomorphic) :books:
+
 Using dune, a simple usage would be:
 ```
 (library
@@ -16,5 +18,7 @@ Using dune, a simple usage would be:
   (libraries monomorphic)
   (flags :standard -open Monomorphic.Int))
 ```
+
+----
 
 [![Build Status](https://travis-ci.org/kit-ty-kate/ocaml-monomorphic.png?branch=master)](https://travis-ci.org/kit-ty-kate/ocaml-monomorphic)
