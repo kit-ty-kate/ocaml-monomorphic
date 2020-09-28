@@ -3,14 +3,23 @@
 
 [@@@ocaml.alert "-deprecated"]
 
-module Make (Ty : TY) = Pervasives
+module Make (Ty : sig type t end) : sig
+  val (=) : Ty.t -> Ty.t -> bool
+  val (<>) : Ty.t -> Ty.t -> bool
+  val (<) : Ty.t -> Ty.t -> bool
+  val (>) : Ty.t -> Ty.t -> bool
+  val (<=) : Ty.t -> Ty.t -> bool
+  val (>=) : Ty.t -> Ty.t -> bool
+  val compare : Ty.t -> Ty.t -> int
+  val min : Ty.t -> Ty.t -> Ty.t
+  val max : Ty.t -> Ty.t -> Ty.t
+end = Pervasives
 
-module None = Pervasives
-
-module Int = Pervasives
-module Bool = Pervasives
-module Float = Pervasives
-module String = Pervasives
+module None : module type of Make(struct type t = unit end) = Pervasives
+module Int : module type of Make(struct type t = int end) = Pervasives
+module Bool : module type of Make(struct type t = bool end) = Pervasives
+module Float : module type of Make(struct type t = float end) = Pervasives
+module String : module type of Make(struct type t = string end) = Pervasives
 
 type 'a eq = 'a -> 'a -> bool
 
