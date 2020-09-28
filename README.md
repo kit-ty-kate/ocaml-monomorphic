@@ -1,5 +1,11 @@
-ocaml-monomorphic is a small library used to shadow polymorphic operators (and functions) contained in Pervasives.
+ocaml-monomorphic is a small library used to shadow polymorphic operators (and functions) contained in Stdlib.
 It can be useful to avoid some mistakes and runtime errors due to OCaml's polymorphic comparison functions.
+
+## Requirements
+
+This library only requires:
+* OCaml >= 4.08
+* Dune >= 2.7
 
 ## Usage
 
