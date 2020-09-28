@@ -3,12 +3,6 @@
 
 [@@@ocaml.alert "-deprecated"]
 
-module type TY = sig
-  type t
-end
-
-module MakeInfix (Ty : TY) = Pervasives
-module MakeCmp (Ty : TY) = Pervasives
 module Make (Ty : TY) = Pervasives
 
 module None = Pervasives

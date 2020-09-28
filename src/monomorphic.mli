@@ -3,29 +3,17 @@
 
 [@@@ocaml.alert "-deprecated"]
 
-module type TY = sig
-  type t
-end
-
-module MakeInfix (Ty : TY) : sig
+(** Shadow with specialised functions using [Ty.t] *)
+module Make (Ty : sig type t end) : sig
   val (=) : Ty.t -> Ty.t -> bool
   val (<>) : Ty.t -> Ty.t -> bool
   val (<) : Ty.t -> Ty.t -> bool
   val (>) : Ty.t -> Ty.t -> bool
   val (<=) : Ty.t -> Ty.t -> bool
   val (>=) : Ty.t -> Ty.t -> bool
-end
-
-module MakeCmp (Ty : TY) : sig
   val compare : Ty.t -> Ty.t -> int
   val min : Ty.t -> Ty.t -> Ty.t
   val max : Ty.t -> Ty.t -> Ty.t
-end
-
-(** Shadow with specialised functions using [TY.t] *)
-module Make (Ty : TY) : sig
-  include module type of MakeInfix(Ty)
-  include module type of MakeCmp(Ty)
 end
 
 (** Almost complete removal of the functions by shadowing *)
