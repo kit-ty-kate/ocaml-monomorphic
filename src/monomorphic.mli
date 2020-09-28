@@ -74,7 +74,7 @@ module Stdlib : sig
 
     module Pervasives : sig
       include module type of Pervasives
-      include module type of None
+      include module type of Int
     end
 
     include module type of Pervasives

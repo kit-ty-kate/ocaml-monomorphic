@@ -67,7 +67,7 @@ module Stdlib = struct
 
     module Pervasives = struct
       include Pervasives
-      include None
+      include Int
     end
 
     include Pervasives
