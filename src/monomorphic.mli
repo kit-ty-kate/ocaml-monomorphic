@@ -1,6 +1,8 @@
 (* Copyright (c) 2013-2017 Kate <kit.ty.kate@disroot.org>. *)
 (* See the LICENSE file at the top-level directory. *)
 
+[@@@ocaml.alert "-deprecated"]
+
 module type TY = sig
   type t
 end
