@@ -2,13 +2,14 @@
 (name monomorphic)
 (version 2.0)
 
+(formatting disabled)
+(generate_opam_files true)
+
 (license MIT)
 (maintainers "Kate <kit.ty.kate@disroot.org>")
 (authors "Kate <kit.ty.kate@disroot.org>")
 (source (github kit-ty-kate/ocaml-monomorphic))
 (documentation "https://kit-ty-kate.github.io/ocaml-monomorphic")
-
-(generate_opam_files true)
 
 (package
   (name monomorphic)
