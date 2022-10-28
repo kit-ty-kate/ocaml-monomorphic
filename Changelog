@@ -1,3 +1,10 @@
+2.1.0 (28/10/2022)
+------------------
+
+- Improve performance when using external functions (fixes #4)
+- Add a dependency to cppo
+- Add support for OCaml 5.0
+
 2.0 (28/09/2020)
 ----------------
 
