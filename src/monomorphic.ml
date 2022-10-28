@@ -4,13 +4,13 @@
 [@@@ocaml.alert "-deprecated"]
 
 module Make (Ty : sig type t end) : sig
-  val (=) : Ty.t -> Ty.t -> bool
-  val (<>) : Ty.t -> Ty.t -> bool
-  val (<) : Ty.t -> Ty.t -> bool
-  val (>) : Ty.t -> Ty.t -> bool
-  val (<=) : Ty.t -> Ty.t -> bool
-  val (>=) : Ty.t -> Ty.t -> bool
-  val compare : Ty.t -> Ty.t -> int
+  external (=) : Ty.t -> Ty.t -> bool = "%equal"
+  external (<>) : Ty.t -> Ty.t -> bool = "%notequal"
+  external (<) : Ty.t -> Ty.t -> bool = "%lessthan"
+  external (>) : Ty.t -> Ty.t -> bool = "%greaterthan"
+  external (<=) : Ty.t -> Ty.t -> bool = "%lessequal"
+  external (>=) : Ty.t -> Ty.t -> bool = "%greaterequal"
+  external compare : Ty.t -> Ty.t -> int = "%compare"
   val min : Ty.t -> Ty.t -> Ty.t
   val max : Ty.t -> Ty.t -> Ty.t
 end = Stdlib
