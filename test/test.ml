@@ -8,8 +8,9 @@ module CheckExternal : sig
   external (<=) : int -> int -> bool = "%lessequal"
   external (>=) : int -> int -> bool = "%greaterequal"
   external compare : int -> int -> int = "%compare"
-  val min : int -> int -> int
-  val max : int -> int -> int
+  val min : int -> int -> int (* TODO: Add some kind of tests to ensure those functions *)
+  val max : int -> int -> int (* stay in sync with the standard library in terms of
+                                 whether they are externals or not *)
 end = Monomorphic.Stdlib
 
 module CheckTypes : sig
