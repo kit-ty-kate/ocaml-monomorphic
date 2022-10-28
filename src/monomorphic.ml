@@ -13,25 +13,17 @@ module Make (Ty : sig type t end) : sig
   val compare : Ty.t -> Ty.t -> int
   val min : Ty.t -> Ty.t -> Ty.t
   val max : Ty.t -> Ty.t -> Ty.t
-end = Pervasives
+end = Stdlib
 
-module None : module type of Make(struct type t = unit end) = Pervasives
-module Int : module type of Make(struct type t = int end) = Pervasives
-module Bool : module type of Make(struct type t = bool end) = Pervasives
-module Float : module type of Make(struct type t = float end) = Pervasives
-module String : module type of Make(struct type t = string end) = Pervasives
+module None : module type of Make(struct type t = unit end) = Stdlib
+module Int : module type of Make(struct type t = int end) = Stdlib
+module Bool : module type of Make(struct type t = bool end) = Stdlib
+module Float : module type of Make(struct type t = float end) = Stdlib
+module String : module type of Make(struct type t = string end) = Stdlib
 
 module Stdlib = struct
   module Stdlib = struct
-    include (Stdlib :
-               module type of Stdlib
-             with module List := Stdlib.List
-              and module ListLabels := Stdlib.ListLabels
-              and module StdLabels := Stdlib.StdLabels
-              and module Pervasives := Stdlib.Pervasives
-              and type in_channel := Stdlib.in_channel
-              and type out_channel := Stdlib.out_channel
-            )
+    include Int
 
     module List = struct
       include List
@@ -65,12 +57,26 @@ module Stdlib = struct
       module List = ListLabels
     end
 
+#if OCAML_VERSION < (5, 0, 0)
     module Pervasives = struct
       include Pervasives
       include Int
     end
+#endif
 
-    include Pervasives
+    include (Stdlib :
+               module type of Stdlib
+             with module List := Stdlib.List
+              and module ListLabels := Stdlib.ListLabels
+              and module StdLabels := Stdlib.StdLabels
+#if OCAML_VERSION < (5, 0, 0)
+              and module Pervasives := Stdlib.Pervasives
+#endif
+              and module Int := Stdlib.Int
+            )
+
+    include Int
+    module Int = Stdlib.Int
   end
 
   include Stdlib

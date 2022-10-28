@@ -1,2 +1,3 @@
 (library
-  (public_name monomorphic))
+ (public_name monomorphic)
+ (preprocess (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{input-file}))))

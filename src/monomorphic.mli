@@ -33,16 +33,6 @@ module String : module type of Make(struct type t = string end)
 
 module Stdlib : sig
   module Stdlib : sig
-    include module type of (Stdlib :
-                              module type of Stdlib
-                            with module List := Stdlib.List
-                             and module ListLabels := Stdlib.ListLabels
-                             and module StdLabels := Stdlib.StdLabels
-                             and module Pervasives := Stdlib.Pervasives
-                             and type in_channel := Stdlib.in_channel
-                             and type out_channel := Stdlib.out_channel
-                           )
-
     module List : sig
       include module type of List
 
@@ -72,12 +62,26 @@ module Stdlib : sig
       module List = ListLabels
     end
 
+#if OCAML_VERSION < (5, 0, 0)
     module Pervasives : sig
       include module type of Pervasives
       include module type of Int
     end
+#endif
 
-    include module type of Pervasives
+    include module type of (Stdlib :
+                              module type of Stdlib
+                            with module List := Stdlib.List
+                             and module ListLabels := Stdlib.ListLabels
+                             and module StdLabels := Stdlib.StdLabels
+#if OCAML_VERSION < (5, 0, 0)
+                             and module Pervasives := Stdlib.Pervasives
+#endif
+                             and module Int := Stdlib.Int
+                           )
+
+    include module type of Int
+    module Int = Stdlib.Int
   end
 
   include module type of Stdlib
