@@ -83,3 +83,10 @@ module Stdlib = struct
 
   include Stdlib
 end
+
+module Unsafe = struct
+  external compare : 'a -> 'a -> int = "%compare"
+  external equal : 'a -> 'a -> bool = "%equal"
+  let min = min
+  let max = max
+end

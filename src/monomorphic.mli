@@ -88,3 +88,10 @@ module Stdlib : sig
 
   include module type of Stdlib
 end
+
+module Unsafe : sig
+  external compare : 'a -> 'a -> int = "%compare"
+  external equal : 'a -> 'a -> bool = "%equal"
+  val min : 'a -> 'a -> 'a
+  val max : 'a -> 'a -> 'a
+end
