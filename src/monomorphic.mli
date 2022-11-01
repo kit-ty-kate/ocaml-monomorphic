@@ -78,6 +78,8 @@ module Stdlib : sig
                              and module Pervasives := Stdlib.Pervasives
 #endif
                              and module Int := Stdlib.Int
+                             and type in_channel = Stdlib.in_channel
+                             and type out_channel = Stdlib.out_channel
                            )
 
     include module type of Int
@@ -85,4 +87,11 @@ module Stdlib : sig
   end
 
   include module type of Stdlib
+end
+
+module Unsafe : sig
+  external compare : 'a -> 'a -> int = "%compare"
+  external equal : 'a -> 'a -> bool = "%equal"
+  val min : 'a -> 'a -> 'a
+  val max : 'a -> 'a -> 'a
 end

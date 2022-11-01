@@ -73,6 +73,8 @@ module Stdlib = struct
               and module Pervasives := Stdlib.Pervasives
 #endif
               and module Int := Stdlib.Int
+              and type in_channel = Stdlib.in_channel
+              and type out_channel = Stdlib.out_channel
             )
 
     include Int
@@ -80,4 +82,11 @@ module Stdlib = struct
   end
 
   include Stdlib
+end
+
+module Unsafe = struct
+  external compare : 'a -> 'a -> int = "%compare"
+  external equal : 'a -> 'a -> bool = "%equal"
+  let min = min
+  let max = max
 end
