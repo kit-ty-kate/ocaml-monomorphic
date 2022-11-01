@@ -73,6 +73,8 @@ module Stdlib = struct
               and module Pervasives := Stdlib.Pervasives
 #endif
               and module Int := Stdlib.Int
+              and type in_channel = Stdlib.in_channel
+              and type out_channel = Stdlib.out_channel
             )
 
     include Int
